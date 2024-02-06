@@ -117,6 +117,7 @@ async fn main() -> Result<()> {
     }));
 
     // Wait for the offer to be pasted
+    println!("Paste the SDP offer from the remote peer");
     let line = must_read_stdin()?;
     let desc_data = decode(line.as_str())?;
     let offer = serde_json::from_str::<RTCSessionDescription>(&desc_data)?;
@@ -143,7 +144,7 @@ async fn main() -> Result<()> {
     //Output the answer in base64 so we can paste it in browser
     if let Some(local_desc) = peer_connection.local_description().await {
         let json_str = serde_json::to_string(&local_desc)?;
-        println!("{}", json_str);
+        //println!("{}", json_str);
         let b64 = encode(&json_str);
         println!("{b64}");
     } else {
